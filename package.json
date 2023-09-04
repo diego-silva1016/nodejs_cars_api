@@ -1,0 +1,13 @@
+{
+  "name": "Node_db",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "knex": "^2.5.1",
+    "pg": "^8.11.3",
+    "sqlite3": "^5.1.6"
+  }
+}
