@@ -43,6 +43,6 @@ app.delete('/carros/:id', async (req, res) => {
     res.status(202).send()
 })
 
-app.listen(3000, () => {
-  console.log('Express server initialized');
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`Express server initialized ${process.env.PORT || 3001}`);
 });
