@@ -8,7 +8,7 @@ class CarRepository {
   }).first()
 
   addCar = async (car) => {    
-    return await knex('cars').insert(car).returning('*').then(([carInserted]) => carInserted)
+    return await knex('cars').insert({...car}).returning('*').then(([carInserted]) => carInserted)
   }
 
   editCar = async (car) => {
