@@ -1,5 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerDocument = require('./swagger/swagger.json');
 const CarService = require('./service/CarService.js');
 
 const app = express();
@@ -9,6 +12,13 @@ const carService = new CarService();
 app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const specs = swaggerJsdoc(swaggerDocument);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
 
 app.get('/carros', async (req, res) => {
     const cars = await carService.getCars()
