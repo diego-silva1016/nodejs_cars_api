@@ -28,7 +28,7 @@
  * tags:
  *   name: Carros
  *   description: API de carros
- * /carros:
+ * /car:
  *   get:
  *     summary: Buscar carros
  *     tags: [Carros]
