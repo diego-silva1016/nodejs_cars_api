@@ -2,7 +2,7 @@ const knex = require('../database/config')
 
 class UserRepository {
   getUsers = async () => {    
-    return await knex('user').select('*')
+    return await knex('user').select('id', 'nome', 'email')
   }
 
   getUserByEmail = async (email) => {    
