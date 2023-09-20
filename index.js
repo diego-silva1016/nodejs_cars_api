@@ -1,13 +1,18 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerDocument = require('./swagger/swagger.json');
-const CarService = require('./service/CarService.js');
+const swaggerDocument = require('./src/swagger/swagger.json');
+
+const carRouter = require('./src/controller/CarController');
+const userRouter = require('./src/controller/UserController');
+const verifyToken = require('./src/middleware/verifyToken');
 
 const app = express();
-
-const carService = new CarService();
+const route = express.Router()
 
 app.use(cors())
 app.use(express.json());
@@ -15,44 +20,16 @@ app.use(express.urlencoded({ extended: true }));
 
 const specs = swaggerJsdoc(swaggerDocument);
 app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true })
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs, { explorer: true })
 );
 
-app.get('/carros', async (req, res) => {
-    const cars = await carService.getCars()
+route.use('/car', verifyToken, carRouter)
+route.use('/user', userRouter)
 
-    res.status(200).send(cars)
-})
-
-app.get('/carros/:id', async (req, res) => {
-    const car = await carService.getCarById(parseInt(req.params.id))
-
-    if(!car)
-        res.sendStatus(204)
-
-    res.status(200).send(car)
-})
-
-app.post('/carros', async (req, res) => {
-    const car = await carService.addCar({...req.body})
-
-    res.status(201).send(car)
-})
-
-app.put('/carros/:id', async (req, res) => {
-    const car = await carService.editCar({id: parseInt(req.params.id) ,...req.body})  
-
-    res.status(200).send(car)
-})
-
-app.delete('/carros/:id', async (req, res) => {
-    await carService.deleteCar(parseInt(req.params.id))
-
-    res.status(202).send()
-})
+app.use(route)
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log(`Express server initialized ${process.env.PORT || 3001}`);
+    console.log(`Express server initialized ${process.env.PORT || 3001}`);
 });
