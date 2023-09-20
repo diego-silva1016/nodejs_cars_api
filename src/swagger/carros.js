@@ -61,7 +61,7 @@
  *               $ref: '#/components/schemas/Carro'
  *       500:
  *         description: Some server error
- * /carros/{id}:
+ * /car/{id}:
  *   get:
  *     summary: Buscar carro por id
  *     tags: [Carros]
