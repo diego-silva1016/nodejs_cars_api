@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('express-async-errors');
 
 const express = require('express');
 const cors = require('cors');
@@ -29,6 +30,10 @@ route.use('/car', verifyToken, carRouter)
 route.use('/user', userRouter)
 
 app.use(route)
+
+app.use((error, req, res, next) => {
+    res.status(error.statusCode || 500).json({message: error.message ?? 'Internal Server Error'});
+})
 
 app.listen(process.env.PORT || 3001, () => {
     console.log(`Express server initialized ${process.env.PORT || 3001}`);
