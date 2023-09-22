@@ -1,7 +1,9 @@
 const UserRepository = require('../repository/UserRepository.js')
 const UserModel = require('../model/UserModel.js')
+const { ApiError } = require('../helper/errors.js');
 const jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs');
+
 
 class UserService {
   constructor() {
@@ -21,10 +23,13 @@ class UserService {
   login = async ({ email, senha }) => {
     const user = await this.userRepository.getUserByEmail(email)
 
+    if(!user)
+      throw new ApiError("Usuário não cadastrado")
+
     const checkedPassword = bcrypt.compareSync(senha, user.senha)
 
     if (!checkedPassword)
-      return null
+      throw new ApiError("Usuário e/ou senha inválido")
 
     var tokenJWT = jwt.sign({ id: user.id },
       process.env.NODE_SECRET_KEY, {
