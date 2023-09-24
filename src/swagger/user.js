@@ -108,6 +108,8 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserCreateResponse'
+ *       409:
+ *         description: Usuário já cadastrado com este e-mail
  *       500:
  *         description: Some server error
  * /user/login:
