@@ -15,6 +15,10 @@ class UserService {
   }
 
   registerUser = async ({ nome, email, senha }) => {
+    const user = await this.userRepository.getUserByEmail(email)
+    if (user){
+      throw new ApiError("Usuário já cadastrado", 409);
+    }
     const hashedPassword = bcrypt.hashSync(senha)
 
     return await this.userRepository.registerUser(new UserModel(nome, email, hashedPassword))
