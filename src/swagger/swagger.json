@@ -19,14 +19,11 @@
                 }
             }
         },
-        "security": {
-            "bearerAuth": []
-        },
         "servers": [
             {
                 "url": "http://15.228.251.48/"
             }
         ]
     },
-    "apis": ["./src/swagger/*.js"]
+    "apis": ["./src/swagger/*.js"]    
 }

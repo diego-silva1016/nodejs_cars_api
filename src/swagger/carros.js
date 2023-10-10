@@ -30,6 +30,7 @@
  *   description: API de carros
  * /car:
  *   get:
+ *     security: [{bearerAuth: []}]
  *     summary: Buscar carros
  *     tags: [Carros]
  *     responses:
@@ -44,6 +45,7 @@
  *       500:
  *         description: Some server error
  *   post:
+ *     security: [{bearerAuth: []}]
  *     summary: Criar um novo carro
  *     tags: [Carros]
  *     requestBody:
@@ -63,6 +65,7 @@
  *         description: Some server error
  * /car/{id}:
  *   get:
+ *     security: [{bearerAuth: []}]
  *     summary: Buscar carro por id
  *     tags: [Carros]
  *     parameters:
@@ -82,6 +85,7 @@
  *       204:
  *         description: Carro não encontrado
  *   put:
+ *    security: [{bearerAuth: []}]
  *    summary: Atualizar carro por id
  *    tags: [Carros]
  *    parameters:
@@ -104,6 +108,7 @@
  *            schema:
  *              $ref: '#/components/schemas/Carro'
  *   delete:
+ *     security: [{bearerAuth: []}]
  *     summary: Remove um carro
  *     tags: [Carros]
  *     parameters:
