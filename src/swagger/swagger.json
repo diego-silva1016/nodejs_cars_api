@@ -10,9 +10,21 @@
                 "url": "https://spdx.org/licenses/MIT.html"
             }
         },
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
+            }
+        },
+        "security": {
+            "bearerAuth": []
+        },
         "servers": [
             {
-                "url": "https://nodejs-project-tj5s.onrender.com"
+                "url": "http://15.228.251.48/"
             }
         ]
     },
